@@ -469,15 +469,19 @@
                 </ul>
                 <div class="auth-buttons">
                     @auth
-                        <div class="user-menu">
-                            <span class="user-name">{{ Auth::user()->us_nombre }}</span>
-                            <a href="{{ route('dashboard') }}" class="btn-login">Dashboard</a>
-                            <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                                @csrf
-                                <button type="submit" class="btn-register" style="border: none; cursor: pointer;">Cerrar Sesión</button>
-                            </form>
-                        </div>
-                    @else
+    <div class="user-menu">
+        <span class="user-name">{{ Auth::user()->us_nombre }}</span>
+        @if(Auth::user()->rol_id == 1)
+            <a href="{{ route('admin.dashboard') }}" class="btn-login">🎛️ Admin Panel</a>
+        @else
+            <a href="{{ route('dashboard') }}" class="btn-login">Dashboard</a>
+        @endif
+        <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+            @csrf
+            <button type="submit" class="btn-register" style="border: none; cursor: pointer;">Cerrar Sesión</button>
+        </form>
+    </div>
+@else
                         <a href="{{ route('login') }}" class="btn-login">Iniciar Sesión</a>
                         <a href="{{ route('register') }}" class="btn-register">Registrarse</a>
                     @endauth
